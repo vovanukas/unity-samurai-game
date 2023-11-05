@@ -1,0 +1,4 @@
+repository "Samurai-GameAudio-1@malvladimiras@cloud"
+  path "/"
+    br "/main"
+    co "/main"
