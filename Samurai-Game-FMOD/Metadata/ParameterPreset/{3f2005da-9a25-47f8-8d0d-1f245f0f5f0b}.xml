@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{3f2005da-9a25-47f8-8d0d-1f245f0f5f0b}">
+		<property name="name">
+			<value>Area Has Wind</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1aee5044-2124-4d8a-bfa8-0a9735857643}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{a366bd3f-2b17-4a73-b9c2-e36ee10db2f8}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{a366bd3f-2b17-4a73-b9c2-e36ee10db2f8}">
+		<property name="initialValue">
+			<value>1</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.19999998807907104</value>
+		</property>
+	</object>
+</objects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{ddb5b1e3-97ec-4ef0-bd41-50d15b867a10}">
+		<property name="assetPath">
+			<value>Ambience/Bees.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>32</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>20.899249999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c749ed9d-8514-4354-acb7-87a5628726d6}</destination>
+		</relationship>
+	</object>
+</objects>
