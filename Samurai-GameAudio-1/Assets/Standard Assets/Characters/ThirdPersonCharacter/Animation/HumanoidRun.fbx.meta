@@ -1931,16 +1931,16 @@ ModelImporter:
       events:
       - time: 0.50671643
         functionName: PlayFootstep
-        data: Walking
+        data: Running
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       - time: 0.9838185
         functionName: PlayFootstep
-        data: Walking
+        data: Running
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       transformMask: []

@@ -9,6 +9,7 @@ TagManager:
   - Grass
   - Gravel
   - Stone
+  - Water
   layers:
   - Default
   - TransparentFX

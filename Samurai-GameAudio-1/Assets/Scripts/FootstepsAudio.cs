@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using FMOD.Studio;
+using System.Linq;
 
 public class FootstepAudio : MonoBehaviour
 {
@@ -12,8 +14,9 @@ public class FootstepAudio : MonoBehaviour
     // Parameter IDs
     string surfaceTypeFMODParameter = "SurfaceType";
     string movementTypeFMODParameter = "MovementType";
+    string waterDepthFMODParameter = "WaterDepth";
 
-    FMOD.Studio.PARAMETER_ID surfaceTypeID, movementTypeID;
+    FMOD.Studio.PARAMETER_ID surfaceTypeID, movementTypeID, waterDepthID;
 
     #region GameObjects and Physics
 
@@ -23,7 +26,7 @@ public class FootstepAudio : MonoBehaviour
     // Velocity
     Vector3 v;
     [SerializeField]
-    float playerVelocity;
+    float playerVelocity, waterDepthFloat;
 
     // Footsteps Game Object
     GameObject footstepObject;
@@ -31,17 +34,16 @@ public class FootstepAudio : MonoBehaviour
     #endregion
 
     [SerializeField]
-    string[] surfaceType = { "Grass", "Gravel", "Stone" };
+    string[] surfaceType, movementType;
     [SerializeField]
     string terrainTag;
 
     [Header("Footstep Variables")]
     float movementTypeFloat = 0f;
     float surfaceTypeFloat = 0f;
-    public bool footstepActive, spacePressed, onAccidentalFallCooldown;
+    public bool footstepActive, jumpActive, spacePressed, onAccidentalFallCooldown, isInWater;
     public float resetThreshold;
     public float movementGate = 0f;
-    bool jumpActive = false;
 
 
 
@@ -59,8 +61,9 @@ public class FootstepAudio : MonoBehaviour
     {
         v.x = Mathf.Abs(playerRB.velocity.x);
         v.z = Mathf.Abs(playerRB.velocity.z);
+        v.y = Mathf.Abs(playerRB.velocity.y);
 
-        playerVelocity = v.x + v.z;
+        playerVelocity = v.x + v.z + v.y;
     }
 
     void ObjectSetup()
@@ -82,20 +85,28 @@ public class FootstepAudio : MonoBehaviour
         FMOD.Studio.PARAMETER_DESCRIPTION surfaceTypePD;
         footstepEventDescription.getParameterDescriptionByName(surfaceTypeFMODParameter, out surfaceTypePD);
         surfaceTypeID = surfaceTypePD.id;
+        surfaceType = GetParameterLabelsNames(surfaceTypePD, footstepEventDescription);
 
         FMOD.Studio.PARAMETER_DESCRIPTION movementTypePD;
         footstepEventDescription.getParameterDescriptionByName(movementTypeFMODParameter, out movementTypePD);
         movementTypeID = movementTypePD.id;
+        movementType = GetParameterLabelsNames(movementTypePD, footstepEventDescription);
+
+        FMOD.Studio.PARAMETER_DESCRIPTION waterDepthPD;
+        footstepEventDescription.getParameterDescriptionByName(waterDepthFMODParameter, out waterDepthPD);
+        waterDepthID = waterDepthPD.id;
     }
 
     // Update is called once per frame
     void Update()
     {
         GetPlayerVelocity();
+
         RayCastSwitch();
         MovementTypeSwitch();
-        Timer();
         IsFalling();
+
+        Timer();
     }
 
     void IsFalling()
@@ -105,14 +116,14 @@ public class FootstepAudio : MonoBehaviour
 
         if (!jumpActive && spacePressed && animator.GetNextAnimatorStateInfo(0).IsName("Airborne"))
         {
-            PlayJump(3f);
+            PlayFootstep(3f);
 
             jumpActive = true;
         }
 
         else if (!jumpActive && !onAccidentalFallCooldown && animator.GetNextAnimatorStateInfo(0).IsName("Airborne"))
         {
-            PlayJump(4f);
+            PlayFootstep(4f);
 
             jumpActive = true;
             onAccidentalFallCooldown = true;
@@ -120,7 +131,7 @@ public class FootstepAudio : MonoBehaviour
 
         if (jumpActive && animator.IsInTransition(0) && !animator.GetNextAnimatorStateInfo(0).IsName("Airborne"))
         {
-            PlayJump(5f);
+            PlayFootstep(5f);
 
             jumpActive = false;
         }
@@ -129,7 +140,15 @@ public class FootstepAudio : MonoBehaviour
     void RayCastSwitch()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        if (isInWater)
+        {
+            terrainTag = "Water";
+
+            if(Physics.Raycast(transform.position, Vector3.up, out hit))
+                if (hit.collider.gameObject.tag == "Water")
+                    waterDepthFloat = hit.distance;
+        }
+        else if (Physics.Raycast(transform.position, Vector3.down, out hit))
         {
             terrainTag = hit.collider.gameObject.tag;
         }
@@ -191,18 +210,22 @@ public class FootstepAudio : MonoBehaviour
         }
     }
 
-    void PlayFootstep(string movementType)
+    void PlayFootstep(float movementType)
     {
-        if (!footstepActive)
+        if (!footstepActive || movementType >= 0)
         {
-            if (playerVelocity > movementGate)
+            if (playerVelocity > movementGate || movementType == 5f)
             {
                 footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
 
                 footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
 
+                footstepEventInstance.setParameterByID(waterDepthID, waterDepthFloat);
                 footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
-                footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
+                if (movementType >= 0)
+                    footstepEventInstance.setParameterByID(movementTypeID, movementType);
+                else
+                    footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
 
                 footstepEventInstance.start();
                 footstepEventInstance.release();
@@ -212,19 +235,23 @@ public class FootstepAudio : MonoBehaviour
         }
     }
 
-    void PlayJump(float movementTypeFloat)
-    {   
-        footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
+    string[] GetParameterLabelsNames(FMOD.Studio.PARAMETER_DESCRIPTION parameterDescription, FMOD.Studio.EventDescription eventDescription)
+    {
+        List<string> output = new List<string>();
 
-        footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
+        for (int i = 0; i <= Convert.ToInt32(parameterDescription.maximum); i++)
+        {
+            string label;
+            eventDescription.getParameterLabelByID(parameterDescription.id, i, out label);
+            output.Add(label);
+        }
 
-        footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
-        footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
+        return output.ToArray();
+    }
 
-        footstepEventInstance.start();
-        footstepEventInstance.release();
-
-        footstepActive = true;
+    void ChangeSurfaceType(string surfaceType)
+    {
+        // footstepEventInstance.setParameterByID(surfaceTypeID, surfaceType);
     }
 }
 
@@ -258,4 +285,19 @@ public class FootstepAudio : MonoBehaviour
     //     yield return new WaitForSeconds(0.3f);
     //     eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     //     yield break;
+    // }
+
+        // void PlayJump(float movementTypeFloat)
+    // {   
+    //     footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
+
+    //     footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
+
+    //     footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
+    //     footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
+
+    //     footstepEventInstance.start();
+    //     footstepEventInstance.release();
+
+    //     footstepActive = true;
     // }

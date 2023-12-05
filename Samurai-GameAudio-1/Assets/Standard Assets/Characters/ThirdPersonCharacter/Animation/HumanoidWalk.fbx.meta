@@ -1477,14 +1477,14 @@ ModelImporter:
         functionName: PlayFootstep
         data: Walking
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       - time: 0.950276
         functionName: PlayFootstep
         data: Walking
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       transformMask: []

@@ -1490,16 +1490,16 @@ ModelImporter:
       events:
       - time: 0.3792463
         functionName: PlayFootstep
-        data: Walking
+        data: Running
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       - time: 0.89641047
         functionName: PlayFootstep
-        data: Walking
+        data: Running
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       transformMask: []
@@ -1533,16 +1533,16 @@ ModelImporter:
       events:
       - time: 0.4245323
         functionName: PlayFootstep
-        data: Walking
+        data: Running
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       - time: 0.8880597
         functionName: PlayFootstep
-        data: Walking
+        data: Running
         objectReferenceParameter: {fileID: 11500000, guid: 41b56005b2cbb49d9aefae503d0320e6, type: 3}
-        floatParameter: 0
+        floatParameter: -1
         intParameter: 0
         messageOptions: 0
       transformMask: []

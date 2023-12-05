@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{6d95e11b-d23a-49fa-b7dc-c7eccfdc32c9}">
+		<property name="name">
+			<value>WaterDepth</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f1a412b0-95b5-4cee-8b33-a2d37bbe420e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{316cfc4f-86df-46cd-9195-f801156f562f}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{316cfc4f-86df-46cd-9195-f801156f562f}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
