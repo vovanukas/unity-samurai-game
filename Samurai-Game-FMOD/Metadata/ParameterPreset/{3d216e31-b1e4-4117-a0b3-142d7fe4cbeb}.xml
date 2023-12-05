@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{3d216e31-b1e4-4117-a0b3-142d7fe4cbeb}">
+		<property name="name">
+			<value>MovementType</value>
+		</property>
+		<relationship name="folder">
+			<destination>{f1a412b0-95b5-4cee-8b33-a2d37bbe420e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{1cf2bcd7-07ca-4849-8554-723389a9e9ed}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{1cf2bcd7-07ca-4849-8554-723389a9e9ed}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>6</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>Crouch</value>
+			<value>Walk</value>
+			<value>Run</value>
+			<value>Jump - Deliberate</value>
+			<value>Jump - Accidental</value>
+			<value>Land</value>
+		</property>
+		<property name="isHeld">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>2</value>
+		</property>
+	</object>
+</objects>
