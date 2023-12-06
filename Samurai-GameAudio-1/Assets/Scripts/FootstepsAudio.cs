@@ -144,7 +144,7 @@ public class FootstepAudio : MonoBehaviour
         {
             terrainTag = "Water";
 
-            if(Physics.Raycast(transform.position, Vector3.up, out hit))
+            if (Physics.Raycast(transform.position, Vector3.up, out hit))
                 if (hit.collider.gameObject.tag == "Water")
                     waterDepthFloat = hit.distance;
         }
@@ -153,14 +153,22 @@ public class FootstepAudio : MonoBehaviour
             terrainTag = hit.collider.gameObject.tag;
         }
 
-        foreach (string surface in surfaceType)
+        if (terrainTag != "Untagged")
         {
-            if (terrainTag == surface)
+            foreach (string surface in surfaceType)
             {
-                float f = Array.IndexOf(surfaceType, surface);
-                surfaceTypeFloat = f;
+                if (terrainTag == surface)
+                {
+                    float f = Array.IndexOf(surfaceType, surface);
+                    surfaceTypeFloat = f;
+                }
             }
         }
+        else
+        {
+            surfaceTypeFloat = -1;
+        }
+
     }
 
     void MovementTypeSwitch()
@@ -170,7 +178,7 @@ public class FootstepAudio : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
             movementTypeFloat = 1f;
-        
+
         if (Input.GetKey(KeyCode.C))
             movementTypeFloat = 0f;
     }
@@ -258,46 +266,46 @@ public class FootstepAudio : MonoBehaviour
 
 
 
-    // public string jumpCoroutineStatus;
-    // IEnumerator jumpCoroutine()
-    // {
-    //     Debug.Log("Started Jump Coroutine");
-    //     jumpCoroutineStatus = "Started";
+// public string jumpCoroutineStatus;
+// IEnumerator jumpCoroutine()
+// {
+//     Debug.Log("Started Jump Coroutine");
+//     jumpCoroutineStatus = "Started";
 
-    //     yield return new WaitForSeconds(0.2f);
-    //     footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
+//     yield return new WaitForSeconds(0.2f);
+//     footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
 
-    //     footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
+//     footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
 
-    //     footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
-    //     footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
+//     footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
+//     footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
 
-    //     footstepEventInstance.start();
-    //     footstepEventInstance.release();
+//     footstepEventInstance.start();
+//     footstepEventInstance.release();
 
-    //     jumpCoroutineStatus = "Finished";
+//     jumpCoroutineStatus = "Finished";
 
-    //     yield break;
-    // }
+//     yield break;
+// }
 
-    // IEnumerator destroyInstance(FMOD.Studio.EventInstance eventInstance)
-    // {
-    //     yield return new WaitForSeconds(0.3f);
-    //     eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    //     yield break;
-    // }
+// IEnumerator destroyInstance(FMOD.Studio.EventInstance eventInstance)
+// {
+//     yield return new WaitForSeconds(0.3f);
+//     eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+//     yield break;
+// }
 
-        // void PlayJump(float movementTypeFloat)
-    // {   
-    //     footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
+// void PlayJump(float movementTypeFloat)
+// {   
+//     footstepEventInstance = FMODUnity.RuntimeManager.CreateInstance(footstepEvent);
 
-    //     footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
+//     footstepEventInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(footstepObject));
 
-    //     footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
-    //     footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
+//     footstepEventInstance.setParameterByID(surfaceTypeID, surfaceTypeFloat);
+//     footstepEventInstance.setParameterByID(movementTypeID, movementTypeFloat);
 
-    //     footstepEventInstance.start();
-    //     footstepEventInstance.release();
+//     footstepEventInstance.start();
+//     footstepEventInstance.release();
 
-    //     footstepActive = true;
-    // }
+//     footstepActive = true;
+// }
