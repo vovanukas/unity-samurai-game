@@ -10,6 +10,7 @@ TagManager:
   - Gravel
   - Stone
   - Water
+  - Bush
   layers:
   - Default
   - TransparentFX

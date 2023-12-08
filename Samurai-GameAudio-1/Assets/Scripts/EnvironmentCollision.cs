@@ -16,13 +16,15 @@ public class EnvironmentCollision : MonoBehaviour
 
     string environmentTypeFMODParameter = "EnvironmentType";
     string playerMovementFMODParameter = "PlayerMovement";
-    string playerVelocityFMODParameter = "PlayerVelocity";
+    string environmentDepthFMODParameter = "WaterDepth";
 
-    FMOD.Studio.PARAMETER_ID environmentTypeID, playerMovementID, playerVelocityID;
+    FMOD.Studio.PARAMETER_ID environmentTypeID, playerMovementID, environmentDepthID;
 
+    bool isInEnvironment = false;
 
-    GameObject playerObject;
+    GameObject playerObject, cube;
     Rigidbody playerRB;
+    Animator animator;
 
     void Start()
     {
@@ -41,9 +43,11 @@ public class EnvironmentCollision : MonoBehaviour
         environmentEventDescription.getParameterDescriptionByName(playerMovementFMODParameter, out playerMovementPD);
         playerMovementID = playerMovementPD.id;
 
-        FMOD.Studio.PARAMETER_DESCRIPTION playerVelocityPD;
-        environmentEventDescription.getParameterDescriptionByName(playerVelocityFMODParameter, out playerVelocityPD);
-        playerVelocityID = playerVelocityPD.id;
+        FMOD.Studio.PARAMETER_DESCRIPTION environmentDepthPD;
+        environmentEventDescription.getParameterDescriptionByName(environmentDepthFMODParameter, out environmentDepthPD);
+        environmentDepthID = environmentDepthPD.id;
+
+        animator = playerObject.GetComponent<Animator>();
     }
 
     void Update()
@@ -52,7 +56,7 @@ public class EnvironmentCollision : MonoBehaviour
     }
 
     bool soundActive = false;
-    void PlaySound(float environmentTypeFloat, float playerMovementTypeFloat, float playerVelocityFloat)
+    void PlaySound(float environmentTypeFloat, float playerMovementTypeFloat, float environmentDepthFloat)
     {
         if (!soundActive)
         {
@@ -62,7 +66,7 @@ public class EnvironmentCollision : MonoBehaviour
 
             environmentEventInstance.setParameterByID(environmentTypeID, environmentTypeFloat);
             environmentEventInstance.setParameterByID(playerMovementID, playerMovementTypeFloat);
-            environmentEventInstance.setParameterByID(playerVelocityID, playerVelocityFloat);
+            environmentEventInstance.setParameterByID(environmentDepthID, environmentDepthFloat);
 
             environmentEventInstance.start();
             environmentEventInstance.release();
@@ -76,7 +80,9 @@ public class EnvironmentCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 0, GetPlayerVelocity());
+            isInEnvironment = true;
+            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Airborne"))
+                PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 0, GetEnvironmentDepthAtPlayerLocation());
         }
     }
 
@@ -84,7 +90,8 @@ public class EnvironmentCollision : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 1, GetPlayerVelocity());
+            isInEnvironment = false;
+            PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 1, GetEnvironmentDepthAtPlayerLocation());
             Debug.Log("Player Left Water");
         }
     }
@@ -94,8 +101,21 @@ public class EnvironmentCollision : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             if (GetPlayerVelocity() > 3f)
-                PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 2, GetPlayerVelocity());
+                PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 2, GetEnvironmentDepthAtPlayerLocation());
         }
+    }
+    float GetEnvironmentDepthAtPlayerLocation()
+    {
+        RaycastHit hit;
+        Vector3 playerPositionAtWaterHeight = playerObject.transform.position;
+        playerPositionAtWaterHeight.y = this.transform.position.y - 0.01f;
+        if (Physics.Raycast(playerPositionAtWaterHeight, Vector3.down, out hit))
+        {
+            Debug.Log(hit.distance);
+            Debug.Log(hit.collider.gameObject.name);
+            return hit.distance;
+        }
+        return -1;
     }
 
 
@@ -113,13 +133,13 @@ public class EnvironmentCollision : MonoBehaviour
     {
         float f = -1;
         foreach (string label in arr)
+        {
+            if (tag == label)
             {
-                if (tag == label)
-                {
-                    f = Array.IndexOf(arr, label);
-                    return f;
-                }
+                f = Array.IndexOf(arr, label);
+                return f;
             }
+        }
 
         return f;
     }
