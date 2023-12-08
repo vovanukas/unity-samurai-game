@@ -16,7 +16,7 @@ public class EnvironmentCollision : MonoBehaviour
 
     string environmentTypeFMODParameter = "EnvironmentType";
     string playerMovementFMODParameter = "PlayerMovement";
-    string environmentDepthFMODParameter = "WaterDepth";
+    string environmentDepthFMODParameter = "EnvironmentDepth";
 
     FMOD.Studio.PARAMETER_ID environmentTypeID, playerMovementID, environmentDepthID;
 
@@ -55,7 +55,7 @@ public class EnvironmentCollision : MonoBehaviour
         Timer();
     }
 
-    bool soundActive = false;
+    public bool soundActive = false;
     void PlaySound(float environmentTypeFloat, float playerMovementTypeFloat, float environmentDepthFloat)
     {
         if (!soundActive)
@@ -81,7 +81,7 @@ public class EnvironmentCollision : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             isInEnvironment = true;
-            if(animator.GetCurrentAnimatorStateInfo(0).IsName("Airborne"))
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Airborne"))
                 PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 0, GetEnvironmentDepthAtPlayerLocation());
         }
     }
@@ -106,14 +106,23 @@ public class EnvironmentCollision : MonoBehaviour
     }
     float GetEnvironmentDepthAtPlayerLocation()
     {
-        RaycastHit hit;
-        Vector3 playerPositionAtWaterHeight = playerObject.transform.position;
-        playerPositionAtWaterHeight.y = this.transform.position.y - 0.01f;
-        if (Physics.Raycast(playerPositionAtWaterHeight, Vector3.down, out hit))
+        if (this.gameObject.tag == "Water")
         {
-            Debug.Log(hit.distance);
-            Debug.Log(hit.collider.gameObject.name);
-            return hit.distance;
+            RaycastHit hit;
+            Vector3 playerPositionAtWaterHeight = playerObject.transform.position;
+            playerPositionAtWaterHeight.y = this.transform.position.y - 0.01f;
+            if (Physics.Raycast(playerPositionAtWaterHeight, Vector3.down, out hit))
+            {
+                return hit.distance;
+            }
+            return -1;
+        }
+
+        else if (this.gameObject.tag == "Bush")
+        {
+            float height = GetComponent<MeshFilter>().mesh.bounds.extents.y;
+
+            return height;
         }
         return -1;
     }
@@ -158,12 +167,19 @@ public class EnvironmentCollision : MonoBehaviour
         return output.ToArray();
     }
 
+    bool IsPlaying(FMOD.Studio.EventInstance instance)
+    {
+        FMOD.Studio.PLAYBACK_STATE state;
+        instance.getPlaybackState(out state);
+        return state != FMOD.Studio.PLAYBACK_STATE.STOPPED;
+    }
+
     void Timer()
     {
         if (soundActive)
         {
             soundActiveTimer += (1 * Time.deltaTime);
-            if (soundActiveTimer > 0.5f)
+            if (soundActiveTimer >0.5f)
             {
                 soundActive = false;
                 soundActiveTimer = 0f;

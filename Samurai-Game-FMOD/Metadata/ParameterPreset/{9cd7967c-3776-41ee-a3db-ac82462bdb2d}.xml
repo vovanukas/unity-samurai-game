@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{9cd7967c-3776-41ee-a3db-ac82462bdb2d}">
 		<property name="name">
-			<value>WaterDepth</value>
+			<value>EnvironmentDepth</value>
 		</property>
 		<relationship name="folder">
 			<destination>{1aee5044-2124-4d8a-bfa8-0a9735857643}</destination>
@@ -12,9 +12,6 @@
 		</relationship>
 	</object>
 	<object class="GameParameter" id="{fba0a2d7-98be-4104-a3f3-754b6f7cc4ae}">
-		<property name="isHeld">
-			<value>true</value>
-		</property>
 		<property name="initialValue">
 			<value>0</value>
 		</property>
