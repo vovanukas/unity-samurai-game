@@ -8,6 +8,8 @@ public class MainMenuBehavior : MonoBehaviour
     [Header("FMOD Events")]
     public FMODUnity.EventReference mainMenuMusicEvent;
     public FMOD.Studio.EventInstance mainMenuMusicEventInstance;
+    public FMODUnity.EventReference uiClickEvent;
+
     public Camera mainMenuCamera;
     public Canvas playerGUI;
     public Canvas[] menuScreens;
@@ -72,6 +74,7 @@ public class MainMenuBehavior : MonoBehaviour
 
     public void OnStartButton()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(uiClickEvent, transform.position);
         FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInMainMenu", 0f);
         showMainMenu = false;
 
@@ -80,17 +83,20 @@ public class MainMenuBehavior : MonoBehaviour
 
     public void OnCreditsButton()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(uiClickEvent, transform.position);
         menuScreens[0].gameObject.SetActive(false);
         menuScreens[1].gameObject.SetActive(true);
     }
 
     public void OnQuitButton()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(uiClickEvent, transform.position);
         Application.Quit();
     }
 
     public void OnCreditsBackButton()
     {
+        FMODUnity.RuntimeManager.PlayOneShot(uiClickEvent, transform.position);
         menuScreens[0].gameObject.SetActive(true);
         menuScreens[1].gameObject.SetActive(false);
     }

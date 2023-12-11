@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DAWAsset" id="{48fac036-be16-4905-ad1b-9f768eb8a84a}">
+		<property name="assetPath">
+			<value>Samurai Game Reaper Project.RPP.link/31-RubbingShovel_ShhinngMedium-231211_1128.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.30821875</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c749ed9d-8514-4354-acb7-87a5628726d6}</destination>
+		</relationship>
+		<relationship name="project">
+			<destination>{87d5caa1-41be-42e7-8f63-460517035c7d}</destination>
+		</relationship>
+	</object>
+</objects>

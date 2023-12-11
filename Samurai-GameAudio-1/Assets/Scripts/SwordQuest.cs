@@ -18,6 +18,10 @@ public class SwordQuest : MonoBehaviour
     bool playerHasEnteredSwordTrigger;
     [SerializeField]
     bool playerHasSword;
+    [Header("FMOD")]
+    public FMODUnity.EventReference acceptOrFinishQuestEvent;
+    public FMODUnity.EventReference swordPickup;
+    public FMODUnity.EventReference swordGive;
 
     /*GAME AUDIO TIP
     Your FMOD & player objects should be defined here
@@ -48,6 +52,7 @@ public class SwordQuest : MonoBehaviour
 
             //Pickup sound should be called here
             //You could either call it at the players location or store the location of the sword pickup
+            FMODUnity.RuntimeManager.PlayOneShot(swordPickup, transform.position);
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 1f);
             Destroy(emperorsSword);
             playerHasSword = true;
@@ -62,7 +67,10 @@ public class SwordQuest : MonoBehaviour
         {
 
             //Dialogue should be called here
+            FMODUnity.RuntimeManager.PlayOneShot(swordGive, transform.position);
             FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
+            FMODUnity.RuntimeManager.PlayOneShot(acceptOrFinishQuestEvent, transform.position);
+
             questComplete = true;
             emperorsSwordEnd.SetActive(true);
             pickupUI.SetActive(false);

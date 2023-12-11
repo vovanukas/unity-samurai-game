@@ -18,6 +18,9 @@ public class TheLeekQuest : MonoBehaviour
     public GameObject leekToGive;
     public bool questStarted;
     bool doesPlayerHaveLeek;
+    [Header("FMOD")]
+    public FMODUnity.EventReference acceptOrFinishQuestEvent;
+    public FMODUnity.EventReference vegBoxPickup;
 
     /*GAME AUDIO TIP
     Your FMOD & player objects should be defined here
@@ -54,6 +57,7 @@ public class TheLeekQuest : MonoBehaviour
             {
                 //Dialogue should be called here
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 1f);
+                FMODUnity.RuntimeManager.PlayOneShot(acceptOrFinishQuestEvent, transform.position);
 
                 questStarted = true;
                 pressToTalkUI.SetActive(false);
@@ -78,6 +82,7 @@ public class TheLeekQuest : MonoBehaviour
                 {
                     //Pickup sound should be called here
                     //You could either call it at the players location or store the location of the box pickup
+                    FMODUnity.RuntimeManager.PlayOneShot(vegBoxPickup, transform.position);
 
                     pressToPickUpUI.SetActive(false);
                     Destroy(leekToCollect);
@@ -101,9 +106,9 @@ public class TheLeekQuest : MonoBehaviour
             pressToGiveUI.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-
+                
                 //Dialogue should be called here
-
+                FMODUnity.RuntimeManager.PlayOneShot(acceptOrFinishQuestEvent, transform.position);
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
 
                 doesPlayerHaveLeek = false;

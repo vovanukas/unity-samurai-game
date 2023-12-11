@@ -55,11 +55,13 @@ public class NoPlayerZone : MonoBehaviour
     void OnTriggerEnter(Collider player)
     {
         playerInNoPlayerZone = true;
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("NoPlayerZone", 1f);
     }
 
     void OnTriggerExit(Collider player)
     {
         playerInNoPlayerZone = false;
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("NoPlayerZone", 0f);
     }
 
 
