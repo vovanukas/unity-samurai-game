@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DAWProject" id="{87d5caa1-41be-42e7-8f63-460517035c7d}">
+		<property name="assetPath">
+			<value>Samurai Game Reaper Project.RPP.link/</value>
+		</property>
+		<property name="dawProjectPath">
+			<value>/Users/malyskinav/Documents/Important Documents/Assessments/6086MAPA - Game Audio/vladimiras-sean-samurai-game/Reaper Project/Samurai Game Reaper Project.RPP</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c749ed9d-8514-4354-acb7-87a5628726d6}</destination>
+		</relationship>
+	</object>
+</objects>

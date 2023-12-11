@@ -12,11 +12,12 @@ public class AudioAreaSpline : MonoBehaviour
     public SplineContainer splineContainer;
     public GameObject fmodObject;
     public bool hasWind;
+    public Canvas areaName;
 
     private GameObject listener;
     private Bounds splineBounds;
     private FMODUnity.StudioEventEmitter windInstance;
-    
+
     public static bool IsInsideSpline(float3 point, SplineContainer splineContainer, Bounds splineBounds, out Vector3 nearestPointInSpline)
     {
         Vector3 pointPositionLocalToSpline = splineContainer.transform.InverseTransformPoint(point);
@@ -24,7 +25,7 @@ public class AudioAreaSpline : MonoBehaviour
         SplineUtility.GetNearestPoint(splineContainer.Spline, pointPositionLocalToSpline, out var splinePoint, out var t);
         splinePoint.y = pointPositionLocalToSpline.y;
 
-        if(Vector3.Distance(point, splineContainer.transform.TransformPoint(splineBounds.center)) < Vector3.Distance(splinePoint, splineBounds.center))
+        if (Vector3.Distance(point, splineContainer.transform.TransformPoint(splineBounds.center)) < Vector3.Distance(splinePoint, splineBounds.center))
         {
             // If point is inside of the spline...
             nearestPointInSpline = point;
@@ -41,11 +42,21 @@ public class AudioAreaSpline : MonoBehaviour
     public void OnAreaExit(Collider other)
     {
         windInstance.SetParameter("Area Has Wind", System.Convert.ToSingle(true)); //default = there should be wind.
+
+        if (areaName)
+        {
+            areaName.gameObject.SetActive(false);
+        }
     }
 
     public void OnAreaEnter(Collider other)
     {
         windInstance.SetParameter("Area Has Wind", System.Convert.ToSingle(hasWind));
+
+        if (areaName)
+        {
+            areaName.gameObject.SetActive(true);
+        }
     }
 
     // Start is called before the first frame update

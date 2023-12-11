@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{cec0f6d9-fe2d-47c4-83fc-4910cab05cc6}">
 		<property name="name">
-			<value>Village Ambiance</value>
+			<value>Village Ambience</value>
 		</property>
 		<property name="outputFormat">
 			<value>2</value>
 		</property>
 		<relationship name="folder">
-			<destination>{241a82be-38d9-4513-b0af-ce1959675e0b}</destination>
+			<destination>{4192a6ef-db36-402c-ba94-946f07589d9b}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{6603b8b3-f217-4b9c-b357-ba6e90880497}</destination>
@@ -56,7 +56,7 @@
 			<destination>{562fc14c-703f-4bfb-9082-3143cd20304a}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{f4367c85-dd8d-4b9d-a03b-adeb4338d299}</destination>
+			<destination>{560d7857-50f8-47a8-bbfa-deecd1c37b8e}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{6b7194f4-ec4a-4a4a-910e-efb6847a6e4f}" />

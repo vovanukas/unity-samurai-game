@@ -11,6 +11,10 @@ TagManager:
   - Stone
   - Water
   - Bush
+  - RiceField
+  - Fire
+  - Wood
+  - Sand
   layers:
   - Default
   - TransparentFX

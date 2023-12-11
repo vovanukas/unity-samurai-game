@@ -160,7 +160,7 @@ MonoBehaviour:
       Data2: 1284168400
       Data3: 721910192
       Data4: -761051173
-    Path: event:/Fire
+    Path: event:/Ambience/Fire
   Event: 
   PlayEvent: 1
   StopEvent: 2

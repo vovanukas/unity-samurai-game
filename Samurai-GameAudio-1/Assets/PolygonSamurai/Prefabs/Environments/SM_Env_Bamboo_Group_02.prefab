@@ -125,5 +125,6 @@ MonoBehaviour:
       Data2: 1336082312
       Data3: 76961927
       Data4: 1396386852
-    Path: event:/EnvironmentCollision
+    Path: event:/Player Actions/EnvironmentCollision
   soundActiveTimer: 0
+  soundActive: 0

@@ -5,9 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuBehavior : MonoBehaviour
 {
+    [Header("FMOD Events")]
+    public FMODUnity.EventReference mainMenuMusicEvent;
+    public FMOD.Studio.EventInstance mainMenuMusicEventInstance;
     public Camera mainMenuCamera;
     public Canvas playerGUI;
     public Canvas[] menuScreens;
+
+    public Animator animator1;
+    public Animator animator2;
 
     public static bool showMainMenu = true;
     private static Camera[] _activeCameras;
@@ -19,9 +25,15 @@ public class MainMenuBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         if (showMainMenu)
         {
+            animator1.Play("mixamo_com", -1);
+            animator2.Play("mixamo_com", -1);
+
+            mainMenuMusicEventInstance = FMODUnity.RuntimeManager.CreateInstance(mainMenuMusicEvent);
+            FMODUnity.RuntimeManager.AttachInstanceToGameObject(mainMenuMusicEventInstance, this.transform);
+            mainMenuMusicEventInstance.start();
+
             Camera[] _activeCameras = Camera.allCameras;
             for (int i = 0; i < _activeCameras.Length; i++)
             {
@@ -30,6 +42,8 @@ public class MainMenuBehavior : MonoBehaviour
             mainMenuCamera.enabled = true;
 
             playerGUI.gameObject.SetActive(false);
+
+            GameObject.FindGameObjectWithTag("Player").gameObject.SetActive(false);
         }
         else
         {
@@ -40,16 +54,16 @@ public class MainMenuBehavior : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            for (int i = 0; i < _activeCameras.Length; i++)
-            {
-                _activeCameras[i].enabled = true;
-            }
+            // for (int i = 0; i < _activeCameras.Length; i++)
+            // {
+            //     _activeCameras[i].enabled = true;
+            // }
         }
     }
 
     void Update()
     {
-        if(showMainMenu)
+        if (showMainMenu)
         {
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
@@ -58,7 +72,9 @@ public class MainMenuBehavior : MonoBehaviour
 
     public void OnStartButton()
     {
+        FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInMainMenu", 0f);
         showMainMenu = false;
+
         SceneManager.LoadScene(0);
     }
 

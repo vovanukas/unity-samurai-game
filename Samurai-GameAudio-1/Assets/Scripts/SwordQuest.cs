@@ -47,7 +47,8 @@ public class SwordQuest : MonoBehaviour
         {
 
             //Pickup sound should be called here
-             //You could either call it at the players location or store the location of the sword pickup
+            //You could either call it at the players location or store the location of the sword pickup
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 1f);
             Destroy(emperorsSword);
             playerHasSword = true;
             pickupUI.SetActive(false);
@@ -61,7 +62,7 @@ public class SwordQuest : MonoBehaviour
         {
 
             //Dialogue should be called here
-
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
             questComplete = true;
             emperorsSwordEnd.SetActive(true);
             pickupUI.SetActive(false);

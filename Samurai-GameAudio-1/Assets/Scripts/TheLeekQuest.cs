@@ -53,6 +53,7 @@ public class TheLeekQuest : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 //Dialogue should be called here
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 1f);
 
                 questStarted = true;
                 pressToTalkUI.SetActive(false);
@@ -102,6 +103,8 @@ public class TheLeekQuest : MonoBehaviour
             {
 
                 //Dialogue should be called here
+
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
 
                 doesPlayerHaveLeek = false;
                 pressToGiveUI.SetActive(false);

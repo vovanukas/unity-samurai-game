@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="DAWAsset" id="{7e75db57-a8b7-4d52-90a2-c34f8981874c}">
+		<property name="assetPath">
+			<value>Samurai Game Reaper Project.RPP.link/Water Swirl01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.64147392290249428</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c749ed9d-8514-4354-acb7-87a5628726d6}</destination>
+		</relationship>
+		<relationship name="project">
+			<destination>{87d5caa1-41be-42e7-8f63-460517035c7d}</destination>
+		</relationship>
+	</object>
+</objects>

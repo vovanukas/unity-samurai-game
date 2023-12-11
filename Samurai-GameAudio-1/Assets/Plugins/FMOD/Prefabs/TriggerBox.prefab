@@ -51,7 +51,7 @@ MonoBehaviour:
       Data2: 1212966287
       Data3: 891726728
       Data4: -94419921
-    Path: event:/Door Knock
+    Path: event:/Player Actions/Door Knock
   Event: 
   PlayEvent: 0
   StopEvent: 0
