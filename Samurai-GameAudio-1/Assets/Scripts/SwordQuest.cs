@@ -19,9 +19,7 @@ public class SwordQuest : MonoBehaviour
     [SerializeField]
     bool playerHasSword;
     [Header("FMOD")]
-    public FMODUnity.EventReference acceptOrFinishQuestEvent;
-    public FMODUnity.EventReference swordPickup;
-    public FMODUnity.EventReference swordGive;
+    public FMODUnity.EventReference acceptOrFinishQuestEvent, swordPickup, swordGive, swordQuestCompleteDialogue;
 
     /*GAME AUDIO TIP
     Your FMOD & player objects should be defined here
@@ -68,8 +66,12 @@ public class SwordQuest : MonoBehaviour
 
             //Dialogue should be called here
             FMODUnity.RuntimeManager.PlayOneShot(swordGive, transform.position);
-            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
             FMODUnity.RuntimeManager.PlayOneShot(acceptOrFinishQuestEvent, transform.position);
+            FMODUnity.RuntimeManager.PlayOneShot(swordQuestCompleteDialogue, giveUI.transform.position);
+
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
+            FMODUnity.RuntimeManager.StudioSystem.setParameterByName("SwordQuestComplete", 1f);
+            
 
             questComplete = true;
             emperorsSwordEnd.SetActive(true);

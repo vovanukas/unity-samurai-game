@@ -19,8 +19,7 @@ public class TheLeekQuest : MonoBehaviour
     public bool questStarted;
     bool doesPlayerHaveLeek;
     [Header("FMOD")]
-    public FMODUnity.EventReference acceptOrFinishQuestEvent;
-    public FMODUnity.EventReference vegBoxPickup;
+    public FMODUnity.EventReference acceptOrFinishQuestEvent, vegBoxPickup, leeksQuestDialogueStart, leeksQuestDialogueEnd;
 
     /*GAME AUDIO TIP
     Your FMOD & player objects should be defined here
@@ -58,6 +57,7 @@ public class TheLeekQuest : MonoBehaviour
                 //Dialogue should be called here
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 1f);
                 FMODUnity.RuntimeManager.PlayOneShot(acceptOrFinishQuestEvent, transform.position);
+                FMODUnity.RuntimeManager.PlayOneShot(leeksQuestDialogueStart, pressToTalkUI.transform.position);
 
                 questStarted = true;
                 pressToTalkUI.SetActive(false);
@@ -110,6 +110,8 @@ public class TheLeekQuest : MonoBehaviour
                 //Dialogue should be called here
                 FMODUnity.RuntimeManager.PlayOneShot(acceptOrFinishQuestEvent, transform.position);
                 FMODUnity.RuntimeManager.StudioSystem.setParameterByName("IsInQuest", 0f);
+                FMODUnity.RuntimeManager.StudioSystem.setParameterByName("LeakQuestComplete", 1f);
+                FMODUnity.RuntimeManager.PlayOneShot(leeksQuestDialogueEnd, pressToTalkUI.transform.position);
 
                 doesPlayerHaveLeek = false;
                 pressToGiveUI.SetActive(false);

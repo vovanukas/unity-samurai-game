@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{18db379b-e68d-4877-812b-49c209cbbc21}">
+		<property name="name">
+			<value>SwordQuestComplete</value>
+		</property>
+		<relationship name="folder">
+			<destination>{728d3a5b-830d-4fc5-911f-49d1a77d38a0}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{5d050bee-49c6-43db-b5a5-2d11ab96d906}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{5d050bee-49c6-43db-b5a5-2d11ab96d906}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

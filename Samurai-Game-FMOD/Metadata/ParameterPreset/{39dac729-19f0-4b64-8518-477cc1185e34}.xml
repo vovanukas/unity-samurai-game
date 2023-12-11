@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{39dac729-19f0-4b64-8518-477cc1185e34}">
+		<property name="name">
+			<value>LeakQuestComplete</value>
+		</property>
+		<relationship name="folder">
+			<destination>{728d3a5b-830d-4fc5-911f-49d1a77d38a0}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{6206bc2a-93ce-4da3-bd08-33a96df94171}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{6206bc2a-93ce-4da3-bd08-33a96df94171}">
+		<property name="parameterType">
+			<value>1</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="isGlobal">
+			<value>true</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="isExposedRecursively">
+			<value>false</value>
+		</property>
+	</object>
+</objects>

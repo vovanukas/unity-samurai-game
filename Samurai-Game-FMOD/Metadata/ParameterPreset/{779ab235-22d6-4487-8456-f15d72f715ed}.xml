@@ -5,7 +5,7 @@
 			<value>IsInQuest</value>
 		</property>
 		<relationship name="folder">
-			<destination>{1aee5044-2124-4d8a-bfa8-0a9735857643}</destination>
+			<destination>{728d3a5b-830d-4fc5-911f-49d1a77d38a0}</destination>
 		</relationship>
 		<relationship name="parameter">
 			<destination>{4de2df2e-edb3-4587-87e4-c92d439fbe62}</destination>
