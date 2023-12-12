@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Samurai-GameAudio-1
+  companyName: Vladimiras & Sean
+  productName: Samurai Village Experience
   defaultCursor: {fileID: 2800000, guid: c6f736a4d89f844e6a3192560e904030, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -281,7 +281,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 0}
+      m_Icon: {fileID: 2800000, guid: b802084aa574b47cc9483e061f57fe2a, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
