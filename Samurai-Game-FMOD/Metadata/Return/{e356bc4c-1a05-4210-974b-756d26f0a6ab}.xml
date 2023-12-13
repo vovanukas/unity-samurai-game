@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="MixerReturn" id="{e356bc4c-1a05-4210-974b-756d26f0a6ab}">
 		<property name="name">
-			<value>A</value>
+			<value>No Player Zone</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{2357ab72-f51c-4855-9c83-9e6de817b090}</destination>

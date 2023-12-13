@@ -10,7 +10,6 @@
 	</object>
 	<object class="ProjectSettings" id="{a0925045-7bca-45f8-ac7b-48e8104e14ec}">
 		<property name="openWindows">
-			<value>Mixer 1</value>
 			<value>Event Editor 1</value>
 		</property>
 		<property name="windowLayout">

@@ -92,7 +92,6 @@ public class EnvironmentCollision : MonoBehaviour
         {
             isInEnvironment = false;
             PlaySound(GetFloatForParameterLabel(environmentType, this.gameObject.tag), 1, GetEnvironmentDepthAtPlayerLocation());
-            Debug.Log("Player Left Water");
         }
     }
 
